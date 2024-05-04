@@ -1,0 +1,283 @@
+---
+title: "Análisis de Producción de bioetanol a base de maíz y caña de azucar en  Argentina"
+author: "Estefany Herrera Martinez"
+date: "8 de Sep 2023"
+output:
+  pdf_document:
+    toc: yes
+    toc_depth: '2'
+  html_document:
+    df_print: paged
+    toc: yes
+    toc_depth: 2
+---
+```{=html}
+<style type="text/css">
+body{ /* Normal  */
+font-size: 12px;
+}
+td {  /* Table  */
+font-size: 10px;
+}
+h1.title {
+font-size: 38px;
+color: DarkRed;
+}
+h1 { /* Header 1 */
+font-size: 28px;
+color: DarkBlue;
+}
+h2 { /* Header 2 */
+font-size: 22px;
+color: DarkBlue;
+}
+h3 { /* Header 3 */
+font-size: 18px;
+color: DarkRed;
+}
+code.r{ /* Code block */
+font-size: 8px;
+}
+pre { /* Code block - determines code spacing between lines */
+font-size: 10px;
+}
+blockquote {
+font-size: 12px;
+border-left: 5px solid #eee;
+}
+</style>
+```
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+#remotes::install_github("rlesur/klippy")
+require(klippy)
+# Me fijo si estos paquetes están instalados y si no, los instalo
+packages <- c("readr", "ggplot2", "dplyr", "Hmisc",
+              "tidyverse", "introdataviz","ggbeeswarm", "tinytex")
+if (length(setdiff(packages, rownames(installed.packages()))) > 0) {
+  install.packages(setdiff(packages, rownames(installed.packages())))
+}
+
+
+```
+
+## Descripción.
+
+Se eligió un dataset que contiene información del volumen producido de bioetanol (en metros cúbicos) a base de maíz y caña de azucar para la producción de biocombustible, registrados en Argentina durante los años 2017, 2018 y 2019;cabe resaltar que para el año 2019 tiene  información de los primeros 5 meses.
+Se descargó el dataset de la página de datos públicos <https://datos.gob.ar> (precisamente, en [este link](https://datos.gob.ar/dataset/agroindustria-biocombustible---produccion-por-insumo-bioetanol)) el 8 de Septiembre de 2022. El archivo descargado (`Trabajo Práctico`) contiene el dataset `produccion-de-bioetanol-por-insumo-.csv` que ahora se encuentra en la carpeta `datos`  y los gráficos de este trabajo estan guardados en la carpeta output.
+
+El objetivo de este trabajo, es realizar dos visualizaciones del dataset elegido y  visualizar  cuál insumo produce mayor cantidad de bioetanol.
+ 
+
+## Importar los datos.
+
+se importa el dataset de la carpeta datos y se toman  las variables relevantes para el análisis : año, mes, producción de bioetanol.
+Se usa del paquete *introdataviz* la función *stack* que genera una variable de producción de bioetanol y  otra variable que clasifica por el tipo de insumo, a esta función se le agrega las variables de los  meses y años con la función *cbind* obteniendo un dataset  que  tiene 4 variables ( mes, año, producción y tipo de insumo).Para que el dataset quede  prolijo,se les cambia los nombres a las variables por lo que corresponde: "Mes", "Año", "Producción" e "Insumo".   
+
+```{r, echo=FALSE, message=FALSE}
+# Instalamos y descargamos las librerias que se van a utilizar
+library(readr)
+library(tinytex)
+library(tidyverse)
+library(dplyr)
+#install.packages("devtools")
+#devtools::install_github("psyteachr/introdataviz")
+library(introdataviz)
+# importo la data
+Bioetanol<- read_csv("Data/produccion-de-bioetanol-por-insumo-.csv")
+#selecciono las variables que voy a usar en el analisis 
+Bioetanol<-Bioetanol %>% select(c(3, 4,7,8))
+#concateno la produccion por tipo de insumo y le pego las variables de  meses y años 
+Bioetanol<-cbind(Bioetanol[1:2],stack(Bioetanol[3:4]))
+# cambio lo nombres de mi dataset para que deque prolijo
+names(Bioetanol)<-c("Año","Mes","Produccion","Insumo")
+head(Bioetanol)
+```
+
+## Producción de bioetanol por insumo. {.tabset .tabset-fade}
+
+Se desea observar por medio de  gráficos  la producción de bioetanol  según el  tipo de materia prima , por lo tanto, se utiliza  la libreria de ggplot2 para su elaboración.
+
+### Código
+```{r eval=TRUE, message=FALSE, warning=FALSE, include=TRUE}
+altura<- .1
+
+ g1<-ggplot(Bioetanol,
+       aes(x ="" ,
+           y = Produccion,
+           fill = Insumo)) +
+  # para dibujar la distirbucion 
+  introdataviz::geom_flat_violin(trim=FALSE,
+                                 alpha = 0.4,
+                                 position = position_nudge(x = altura+.05)) +
+  # dibujar ne forma dee punto las observaciones 
+  geom_point(aes(colour = Insumo), 
+             size = 2,
+             alpha = .5,
+             show.legend = FALSE, 
+             position = position_jitter(width = altura,
+                                        height = 0)) +
+  # hacer los boxplot de las observaciones 
+  geom_boxplot(aes(group=Insumo, color=Insumo),
+               width = altura,
+               alpha = 0.4, 
+               show.legend = FALSE, 
+               outlier.shape = NA,
+               position = position_nudge(x = -altura*2)) +
+   
+   # poner nombre y limites en el eje y
+  scale_y_continuous(name = "Producción de bioetanol en m³",
+                     breaks = seq(0, 80000, 20000), 
+                     limits = c(0, 80000)) +
+   # Girar  el eje 
+  coord_flip() +
+   
+   # eliminar el nombre de  xlim del grafico 
+   scale_x_discrete(labels = NULL, breaks = NULL) + 
+   
+   # colocar bonito el gráfico 
+  labs(x="",title = "Maíz vs Caña de azucar", 
+       subtitle = "Producción de bioetanol por tipo de insumo", 
+       caption = "fecha: 9 Sep 2022" ) +
+   # escoger forma del plano 
+  theme_minimal() +
+   
+  theme(panel.grid.major.y = element_blank(),
+        legend.background = element_rect(fill = "white", color = "white"))
+
+
+```
+
+### Output {.active}
+
+```{r,echo=FALSE,fig.align="center",fig.width=8, fig.height=6,message=FALSE, warning=FALSE}
+g1
+```
+
+Se puede observar que hay mayor producción de bioetanol a base me maíz.
+
+Ahora veamos un gráfico que divida la producción de bioetanol por años.
+
+## Producción de bioetanol a base de  materia prima por año . {.tabset .tabset-fade}
+### Código
+
+```{r eval=TRUE, message=FALSE, warning=FALSE, include=TRUE}
+# se realizó nos mismos pasos que en codigo anterior.
+altura<- .1
+
+g2<-ggplot(Bioetanol,
+       aes(x ="" ,
+           y = Produccion,
+           fill = Insumo)) +
+  
+  introdataviz::geom_flat_violin(trim=FALSE, 
+                                 alpha = 0.4,
+                                 position = position_nudge(x = altura+.05)) +
+  
+  geom_point(aes(colour = Insumo),
+             size = 2,
+             alpha = .5,
+             show.legend = FALSE, 
+             position = position_jitter(width = altura, height = 0)) +
+  
+  geom_boxplot(aes(group=Insumo, color=Insumo),
+               width = altura,
+               alpha = 0.4, 
+               show.legend = FALSE, 
+               outlier.shape = NA,
+               position = position_nudge(x = -altura*2)) +
+  
+  scale_y_continuous(name = "Producción de bioetanol en m³",
+                     breaks = seq(0, 80000, 20000), 
+                     limits = c(0, 80000)) +
+  coord_flip() +
+  facet_wrap(~factor(Año)) +
+  
+  scale_x_discrete(labels = NULL, breaks = NULL) + 
+  
+  labs(x="", title = "Maíz vs Caña de azucar", 
+       subtitle = "Producción de bioetanol por tipo de insumo en los años 2017,2018 y 2019", 
+       caption = "fecha: 9 Sep 2022") +
+  theme_minimal() +
+  
+  theme(panel.grid.major.y = element_blank(),
+       # legend.position = "bottom" ,
+        legend.background = element_rect(fill = "white", color = "white"))
+```
+
+
+### Output {.active}
+
+```{r,echo=FALSE,fig.align="center",fig.width=8, fig.height=6,message=FALSE, warning=FALSE}
+g2
+```
+Se puede observar en los gráficos de manera general, que la producción de bioetanol a base de maíz es menos dispersa en relación a la producción de bioetanol a base de caña de azucar.
+
+En el segundo gráfico muestra que el producción  de bioetanol a base de maíz fue mayor en lo años 2018 y 2019, mientras que en el 2017 fue muy similiar la producción de bioetanol entre los insumos. 
+
+##  producción de bioetanol por insumo en los diferetes meses de los años. {.tabset .tabset-fade}
+ 
+Ahora realizamos el gráfico para observar la producción de bioetanol por insumo por mes de cada año, para esto utlizo la libreria de *ggplot2*.
+
+### Código
+```{r eval=TRUE, message=FALSE, warning=FALSE, include=TRUE}
+require(tidyverse)
+
+# convierto en factor el mes y escribo los meses ordinalmente para
+# que en el grafico aparezcan en orden.
+
+Bioetanol$Mes<-factor(Bioetanol$Mes, 
+               levels = c("Enero","Febrero","Marzo","Abril","Mayo",
+                            "Junio","Julio","Agosto","Septiembre",
+                            "Octubre","Noviembre","Diciembre"))
+
+# convierto en factor la variable año
+Bioetanol$Año<-as.factor(Bioetanol$Año)
+
+# grafico la produccion de insumos por año
+
+library(ggplot2)
+
+g3<-ggplot(data=Bioetanol, 
+       aes(x=factor(Mes),
+           y=Produccion, 
+           group=Insumo,
+           shape=Insumo,
+           color=Insumo,
+           x)) + 
+  geom_line() + 
+  geom_point() +
+  facet_grid( .~Año, switch = "x") +  #scales="free", space="free"
+  #scale_x_discrete("Mes") +
+  #scale_y_continuous("Producción") +
+  theme(axis.text.x = element_text(angle = 90))+
+  labs(x="Mes", y="Producción de bioetanol en m³", title = "Maíz vs Caña de azucar", 
+       subtitle = "Producción de bioetanol a base de maiz y caña de azucar", 
+       caption = "fecha: 9 Sep 2022") 
+
+```
+
+### Output {.active}
+
+```{r,echo=FALSE,fig.align="center",fig.width=9, fig.height=5}
+g3
+```
+
+En el gráfico podemos ver que la producción de bioetanol a base de maíz tiende a aumentar en los últimos meses de cada año, caso contrario con la producción a base de  caña de azucar. Además, se observa que la producción  a base de maíz, tiene menos variabilidad con respecto a la pruducción a base de  caña de azucar.
+
+Para  maíz, la máxima  producción de bioetanol en el año 2017 se desarrollo en los meses de diciembre y la mínima en el mes de mayo, para el año 2018, la máxima se ubicó en el mes de diciembre y la mínima en el mes de febrero,por último para el año 2019,abril fue el mes con mayor  producción de bioetanol  con respecto a los 5 primeros meses y enero, el mes con menor prodicción.
+
+Para caña de azucar, el mes con mayor producción de bioetanol en el año 2017, se ubicó en el mes de octubre y la menor producción en el mes de abril,para el año 2018, la maxima producción de bioetanol fue en el mes de julio y la mínima en el mes de marzo, por último, mayo, fue el mes con máxima producción de bioetanol para el 2019 y abril, el mes con menor producción de bioetanol, cabe resaltar que en el 2019 solo se tiene los datos de producción de bioetanol de los primeros 5 meses.  
+
+## Guardo figuras.
+```{r,message=FALSE, warning=FALSE, echo=FALSE}
+## Guardo figuras.
+ggsave( "output/fig1.pdf", plot = g1)
+ggsave( "output/fig2.pdf", plot = g2)
+ggsave( "output/fig2.pdf", plot = g3)
+```
+
+## Referencias.
+Página para gráficos ([https://r-graph-gallery.com/index.html])
+
+Análisis de Temperatura([file:///C:/Users/Usuario/AppData/Local/Temp/Rar$EXa0.115/datos_temperatura/analisis.html])

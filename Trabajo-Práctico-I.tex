@@ -1,0 +1,373 @@
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+%
+\documentclass[
+]{article}
+\usepackage{amsmath,amssymb}
+\usepackage{iftex}
+\ifPDFTeX
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math} % this also loads fontspec
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+\usepackage{lmodern}
+\ifPDFTeX\else
+  % xetex/luatex font selection
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+\usepackage{xcolor}
+\usepackage[margin=1in]{geometry}
+\usepackage{color}
+\usepackage{fancyvrb}
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+% Add ',fontsize=\small' for more characters per line
+\usepackage{framed}
+\definecolor{shadecolor}{RGB}{248,248,248}
+\newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{0.94,0.16,0.16}{#1}}
+\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\BuiltInTok}[1]{#1}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.64,0.00,0.00}{\textbf{#1}}}
+\newcommand{\ExtensionTok}[1]{#1}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\ImportTok}[1]{#1}
+\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\NormalTok}[1]{#1}
+\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\RegionMarkerTok}[1]{#1}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\usepackage{graphicx}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+% Set default figure placement to htbp
+\makeatletter
+\def\fps@figure{htbp}
+\makeatother
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{-\maxdimen} % remove section numbering
+\ifLuaTeX
+  \usepackage{selnolig}  % disable illegal ligatures
+\fi
+\usepackage{bookmark}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\urlstyle{same}
+\hypersetup{
+  pdftitle={Análisis de Producción de bioetanol a base de maíz y caña de azucar en Argentina},
+  pdfauthor={Estefany Herrera Martinez},
+  hidelinks,
+  pdfcreator={LaTeX via pandoc}}
+
+\title{Análisis de Producción de bioetanol a base de maíz y caña de
+azucar en Argentina}
+\author{Estefany Herrera Martinez}
+\date{8 de Sep 2023}
+
+\begin{document}
+\maketitle
+
+{
+\setcounter{tocdepth}{2}
+\tableofcontents
+}
+\subsection{Descripción.}\label{descripciuxf3n.}
+
+Se eligió un dataset que contiene información del volumen producido de
+bioetanol (en metros cúbicos) a base de maíz y caña de azucar para la
+producción de biocombustible, registrados en Argentina durante los años
+2017, 2018 y 2019;cabe resaltar que para el año 2019 tiene información
+de los primeros 5 meses. Se descargó el dataset de la página de datos
+públicos \url{https://datos.gob.ar} (precisamente, en
+\href{https://datos.gob.ar/dataset/agroindustria-biocombustible---produccion-por-insumo-bioetanol}{este
+link}) el 8 de Septiembre de 2022. El archivo descargado
+(\texttt{Trabajo\ Práctico}) contiene el dataset
+\texttt{produccion-de-bioetanol-por-insumo-.csv} que ahora se encuentra
+en la carpeta \texttt{datos} y los gráficos de este trabajo estan
+guardados en la carpeta output.
+
+El objetivo de este trabajo, es realizar dos visualizaciones del dataset
+elegido y visualizar cuál insumo produce mayor cantidad de bioetanol.
+
+\subsection{Importar los datos.}\label{importar-los-datos.}
+
+se importa el dataset de la carpeta datos y se toman las variables
+relevantes para el análisis : año, mes, producción de bioetanol. Se usa
+del paquete \emph{introdataviz} la función \emph{stack} que genera una
+variable de producción de bioetanol y otra variable que clasifica por el
+tipo de insumo, a esta función se le agrega las variables de los meses y
+años con la función \emph{cbind} obteniendo un dataset que tiene 4
+variables ( mes, año, producción y tipo de insumo).Para que el dataset
+quede prolijo,se les cambia los nombres a las variables por lo que
+corresponde: ``Mes'', ``Año'', ``Producción'' e ``Insumo''.
+
+\begin{verbatim}
+##    Año     Mes Produccion Insumo
+## 1 2017   Enero      37794   caña
+## 2 2017 Febrero      35607   caña
+## 3 2017   Marzo      38696   caña
+## 4 2017   Abril      35355   caña
+## 5 2017    Mayo      44053   caña
+## 6 2017   Junio      51159   caña
+\end{verbatim}
+
+\subsection{Producción de bioetanol por
+insumo.}\label{producciuxf3n-de-bioetanol-por-insumo.}
+
+Se desea observar por medio de gráficos la producción de bioetanol según
+el tipo de materia prima , por lo tanto, se utiliza la libreria de
+ggplot2 para su elaboración.
+
+\subsubsection{Código}\label{cuxf3digo}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{altura}\OtherTok{\textless{}{-}}\NormalTok{ .}\DecValTok{1}
+
+\NormalTok{ g1}\OtherTok{\textless{}{-}}\FunctionTok{ggplot}\NormalTok{(Bioetanol,}
+       \FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\StringTok{""}\NormalTok{ ,}
+           \AttributeTok{y =}\NormalTok{ Produccion,}
+           \AttributeTok{fill =}\NormalTok{ Insumo)) }\SpecialCharTok{+}
+  \CommentTok{\# para dibujar la distirbucion }
+\NormalTok{  introdataviz}\SpecialCharTok{::}\FunctionTok{geom\_flat\_violin}\NormalTok{(}\AttributeTok{trim=}\ConstantTok{FALSE}\NormalTok{,}
+                                 \AttributeTok{alpha =} \FloatTok{0.4}\NormalTok{,}
+                                 \AttributeTok{position =} \FunctionTok{position\_nudge}\NormalTok{(}\AttributeTok{x =}\NormalTok{ altura}\FloatTok{+.05}\NormalTok{)) }\SpecialCharTok{+}
+  \CommentTok{\# dibujar ne forma dee punto las observaciones }
+  \FunctionTok{geom\_point}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{colour =}\NormalTok{ Insumo), }
+             \AttributeTok{size =} \DecValTok{2}\NormalTok{,}
+             \AttributeTok{alpha =}\NormalTok{ .}\DecValTok{5}\NormalTok{,}
+             \AttributeTok{show.legend =} \ConstantTok{FALSE}\NormalTok{, }
+             \AttributeTok{position =} \FunctionTok{position\_jitter}\NormalTok{(}\AttributeTok{width =}\NormalTok{ altura,}
+                                        \AttributeTok{height =} \DecValTok{0}\NormalTok{)) }\SpecialCharTok{+}
+  \CommentTok{\# hacer los boxplot de las observaciones }
+  \FunctionTok{geom\_boxplot}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{group=}\NormalTok{Insumo, }\AttributeTok{color=}\NormalTok{Insumo),}
+               \AttributeTok{width =}\NormalTok{ altura,}
+               \AttributeTok{alpha =} \FloatTok{0.4}\NormalTok{, }
+               \AttributeTok{show.legend =} \ConstantTok{FALSE}\NormalTok{, }
+               \AttributeTok{outlier.shape =} \ConstantTok{NA}\NormalTok{,}
+               \AttributeTok{position =} \FunctionTok{position\_nudge}\NormalTok{(}\AttributeTok{x =} \SpecialCharTok{{-}}\NormalTok{altura}\SpecialCharTok{*}\DecValTok{2}\NormalTok{)) }\SpecialCharTok{+}
+   
+   \CommentTok{\# poner nombre y limites en el eje y}
+  \FunctionTok{scale\_y\_continuous}\NormalTok{(}\AttributeTok{name =} \StringTok{"Producción de bioetanol en m³"}\NormalTok{,}
+                     \AttributeTok{breaks =} \FunctionTok{seq}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{80000}\NormalTok{, }\DecValTok{20000}\NormalTok{), }
+                     \AttributeTok{limits =} \FunctionTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{80000}\NormalTok{)) }\SpecialCharTok{+}
+   \CommentTok{\# Girar  el eje }
+  \FunctionTok{coord\_flip}\NormalTok{() }\SpecialCharTok{+}
+   
+   \CommentTok{\# eliminar el nombre de  xlim del grafico }
+   \FunctionTok{scale\_x\_discrete}\NormalTok{(}\AttributeTok{labels =} \ConstantTok{NULL}\NormalTok{, }\AttributeTok{breaks =} \ConstantTok{NULL}\NormalTok{) }\SpecialCharTok{+} 
+   
+   \CommentTok{\# colocar bonito el gráfico }
+  \FunctionTok{labs}\NormalTok{(}\AttributeTok{x=}\StringTok{""}\NormalTok{,}\AttributeTok{title =} \StringTok{"Maíz vs Caña de azucar"}\NormalTok{, }
+       \AttributeTok{subtitle =} \StringTok{"Producción de bioetanol por tipo de insumo"}\NormalTok{, }
+       \AttributeTok{caption =} \StringTok{"fecha: 9 Sep 2022"}\NormalTok{ ) }\SpecialCharTok{+}
+   \CommentTok{\# escoger forma del plano }
+  \FunctionTok{theme\_minimal}\NormalTok{() }\SpecialCharTok{+}
+   
+  \FunctionTok{theme}\NormalTok{(}\AttributeTok{panel.grid.major.y =} \FunctionTok{element\_blank}\NormalTok{(),}
+        \AttributeTok{legend.background =} \FunctionTok{element\_rect}\NormalTok{(}\AttributeTok{fill =} \StringTok{"white"}\NormalTok{, }\AttributeTok{color =} \StringTok{"white"}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\subsubsection{Output}\label{output}
+
+\begin{center}\includegraphics{Trabajo-Práctico-I_files/figure-latex/unnamed-chunk-3-1} \end{center}
+
+Se puede observar que hay mayor producción de bioetanol a base me maíz.
+
+Ahora veamos un gráfico que divida la producción de bioetanol por años.
+
+\subsection{Producción de bioetanol a base de materia prima por año
+.}\label{producciuxf3n-de-bioetanol-a-base-de-materia-prima-por-auxf1o-.}
+
+\subsubsection{Código}\label{cuxf3digo-1}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# se realizó nos mismos pasos que en codigo anterior.}
+\NormalTok{altura}\OtherTok{\textless{}{-}}\NormalTok{ .}\DecValTok{1}
+
+\NormalTok{g2}\OtherTok{\textless{}{-}}\FunctionTok{ggplot}\NormalTok{(Bioetanol,}
+       \FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\StringTok{""}\NormalTok{ ,}
+           \AttributeTok{y =}\NormalTok{ Produccion,}
+           \AttributeTok{fill =}\NormalTok{ Insumo)) }\SpecialCharTok{+}
+  
+\NormalTok{  introdataviz}\SpecialCharTok{::}\FunctionTok{geom\_flat\_violin}\NormalTok{(}\AttributeTok{trim=}\ConstantTok{FALSE}\NormalTok{, }
+                                 \AttributeTok{alpha =} \FloatTok{0.4}\NormalTok{,}
+                                 \AttributeTok{position =} \FunctionTok{position\_nudge}\NormalTok{(}\AttributeTok{x =}\NormalTok{ altura}\FloatTok{+.05}\NormalTok{)) }\SpecialCharTok{+}
+  
+  \FunctionTok{geom\_point}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{colour =}\NormalTok{ Insumo),}
+             \AttributeTok{size =} \DecValTok{2}\NormalTok{,}
+             \AttributeTok{alpha =}\NormalTok{ .}\DecValTok{5}\NormalTok{,}
+             \AttributeTok{show.legend =} \ConstantTok{FALSE}\NormalTok{, }
+             \AttributeTok{position =} \FunctionTok{position\_jitter}\NormalTok{(}\AttributeTok{width =}\NormalTok{ altura, }\AttributeTok{height =} \DecValTok{0}\NormalTok{)) }\SpecialCharTok{+}
+  
+  \FunctionTok{geom\_boxplot}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{group=}\NormalTok{Insumo, }\AttributeTok{color=}\NormalTok{Insumo),}
+               \AttributeTok{width =}\NormalTok{ altura,}
+               \AttributeTok{alpha =} \FloatTok{0.4}\NormalTok{, }
+               \AttributeTok{show.legend =} \ConstantTok{FALSE}\NormalTok{, }
+               \AttributeTok{outlier.shape =} \ConstantTok{NA}\NormalTok{,}
+               \AttributeTok{position =} \FunctionTok{position\_nudge}\NormalTok{(}\AttributeTok{x =} \SpecialCharTok{{-}}\NormalTok{altura}\SpecialCharTok{*}\DecValTok{2}\NormalTok{)) }\SpecialCharTok{+}
+  
+  \FunctionTok{scale\_y\_continuous}\NormalTok{(}\AttributeTok{name =} \StringTok{"Producción de bioetanol en m³"}\NormalTok{,}
+                     \AttributeTok{breaks =} \FunctionTok{seq}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{80000}\NormalTok{, }\DecValTok{20000}\NormalTok{), }
+                     \AttributeTok{limits =} \FunctionTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{80000}\NormalTok{)) }\SpecialCharTok{+}
+  \FunctionTok{coord\_flip}\NormalTok{() }\SpecialCharTok{+}
+  \FunctionTok{facet\_wrap}\NormalTok{(}\SpecialCharTok{\textasciitilde{}}\FunctionTok{factor}\NormalTok{(Año)) }\SpecialCharTok{+}
+  
+  \FunctionTok{scale\_x\_discrete}\NormalTok{(}\AttributeTok{labels =} \ConstantTok{NULL}\NormalTok{, }\AttributeTok{breaks =} \ConstantTok{NULL}\NormalTok{) }\SpecialCharTok{+} 
+  
+  \FunctionTok{labs}\NormalTok{(}\AttributeTok{x=}\StringTok{""}\NormalTok{, }\AttributeTok{title =} \StringTok{"Maíz vs Caña de azucar"}\NormalTok{, }
+       \AttributeTok{subtitle =} \StringTok{"Producción de bioetanol por tipo de insumo en los años 2017,2018 y 2019"}\NormalTok{, }
+       \AttributeTok{caption =} \StringTok{"fecha: 9 Sep 2022"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{theme\_minimal}\NormalTok{() }\SpecialCharTok{+}
+  
+  \FunctionTok{theme}\NormalTok{(}\AttributeTok{panel.grid.major.y =} \FunctionTok{element\_blank}\NormalTok{(),}
+       \CommentTok{\# legend.position = "bottom" ,}
+        \AttributeTok{legend.background =} \FunctionTok{element\_rect}\NormalTok{(}\AttributeTok{fill =} \StringTok{"white"}\NormalTok{, }\AttributeTok{color =} \StringTok{"white"}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\subsubsection{Output}\label{output-1}
+
+\begin{center}\includegraphics{Trabajo-Práctico-I_files/figure-latex/unnamed-chunk-5-1} \end{center}
+
+Se puede observar en los gráficos de manera general, que la producción
+de bioetanol a base de maíz es menos dispersa en relación a la
+producción de bioetanol a base de caña de azucar.
+
+En el segundo gráfico muestra que el producción de bioetanol a base de
+maíz fue mayor en lo años 2018 y 2019, mientras que en el 2017 fue muy
+similiar la producción de bioetanol entre los insumos.
+
+\subsection{producción de bioetanol por insumo en los diferetes meses de
+los
+años.}\label{producciuxf3n-de-bioetanol-por-insumo-en-los-diferetes-meses-de-los-auxf1os.}
+
+Ahora realizamos el gráfico para observar la producción de bioetanol por
+insumo por mes de cada año, para esto utlizo la libreria de
+\emph{ggplot2}.
+
+\subsubsection{Código}\label{cuxf3digo-2}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{require}\NormalTok{(tidyverse)}
+
+\CommentTok{\# convierto en factor el mes y escribo los meses ordinalmente para}
+\CommentTok{\# que en el grafico aparezcan en orden.}
+
+\NormalTok{Bioetanol}\SpecialCharTok{$}\NormalTok{Mes}\OtherTok{\textless{}{-}}\FunctionTok{factor}\NormalTok{(Bioetanol}\SpecialCharTok{$}\NormalTok{Mes, }
+               \AttributeTok{levels =} \FunctionTok{c}\NormalTok{(}\StringTok{"Enero"}\NormalTok{,}\StringTok{"Febrero"}\NormalTok{,}\StringTok{"Marzo"}\NormalTok{,}\StringTok{"Abril"}\NormalTok{,}\StringTok{"Mayo"}\NormalTok{,}
+                            \StringTok{"Junio"}\NormalTok{,}\StringTok{"Julio"}\NormalTok{,}\StringTok{"Agosto"}\NormalTok{,}\StringTok{"Septiembre"}\NormalTok{,}
+                            \StringTok{"Octubre"}\NormalTok{,}\StringTok{"Noviembre"}\NormalTok{,}\StringTok{"Diciembre"}\NormalTok{))}
+
+\CommentTok{\# convierto en factor la variable año}
+\NormalTok{Bioetanol}\SpecialCharTok{$}\NormalTok{Año}\OtherTok{\textless{}{-}}\FunctionTok{as.factor}\NormalTok{(Bioetanol}\SpecialCharTok{$}\NormalTok{Año)}
+
+\CommentTok{\# grafico la produccion de insumos por año}
+
+\FunctionTok{library}\NormalTok{(ggplot2)}
+
+\NormalTok{g3}\OtherTok{\textless{}{-}}\FunctionTok{ggplot}\NormalTok{(}\AttributeTok{data=}\NormalTok{Bioetanol, }
+       \FunctionTok{aes}\NormalTok{(}\AttributeTok{x=}\FunctionTok{factor}\NormalTok{(Mes),}
+           \AttributeTok{y=}\NormalTok{Produccion, }
+           \AttributeTok{group=}\NormalTok{Insumo,}
+           \AttributeTok{shape=}\NormalTok{Insumo,}
+           \AttributeTok{color=}\NormalTok{Insumo,}
+\NormalTok{           x)) }\SpecialCharTok{+} 
+  \FunctionTok{geom\_line}\NormalTok{() }\SpecialCharTok{+} 
+  \FunctionTok{geom\_point}\NormalTok{() }\SpecialCharTok{+}
+  \FunctionTok{facet\_grid}\NormalTok{( .}\SpecialCharTok{\textasciitilde{}}\NormalTok{Año, }\AttributeTok{switch =} \StringTok{"x"}\NormalTok{) }\SpecialCharTok{+}  \CommentTok{\#scales="free", space="free"}
+  \CommentTok{\#scale\_x\_discrete("Mes") +}
+  \CommentTok{\#scale\_y\_continuous("Producción") +}
+  \FunctionTok{theme}\NormalTok{(}\AttributeTok{axis.text.x =} \FunctionTok{element\_text}\NormalTok{(}\AttributeTok{angle =} \DecValTok{90}\NormalTok{))}\SpecialCharTok{+}
+  \FunctionTok{labs}\NormalTok{(}\AttributeTok{x=}\StringTok{"Mes"}\NormalTok{, }\AttributeTok{y=}\StringTok{"Producción de bioetanol en m³"}\NormalTok{, }\AttributeTok{title =} \StringTok{"Maíz vs Caña de azucar"}\NormalTok{, }
+       \AttributeTok{subtitle =} \StringTok{"Producción de bioetanol a base de maiz y caña de azucar"}\NormalTok{, }
+       \AttributeTok{caption =} \StringTok{"fecha: 9 Sep 2022"}\NormalTok{) }
+\end{Highlighting}
+\end{Shaded}
+
+\subsubsection{Output}\label{output-2}
+
+\begin{center}\includegraphics{Trabajo-Práctico-I_files/figure-latex/unnamed-chunk-7-1} \end{center}
+
+En el gráfico podemos ver que la producción de bioetanol a base de maíz
+tiende a aumentar en los últimos meses de cada año, caso contrario con
+la producción a base de caña de azucar. Además, se observa que la
+producción a base de maíz, tiene menos variabilidad con respecto a la
+pruducción a base de caña de azucar.
+
+Para maíz, la máxima producción de bioetanol en el año 2017 se
+desarrollo en los meses de diciembre y la mínima en el mes de mayo, para
+el año 2018, la máxima se ubicó en el mes de diciembre y la mínima en el
+mes de febrero,por último para el año 2019,abril fue el mes con mayor
+producción de bioetanol con respecto a los 5 primeros meses y enero, el
+mes con menor prodicción.
+
+Para caña de azucar, el mes con mayor producción de bioetanol en el año
+2017, se ubicó en el mes de octubre y la menor producción en el mes de
+abril,para el año 2018, la maxima producción de bioetanol fue en el mes
+de julio y la mínima en el mes de marzo, por último, mayo, fue el mes
+con máxima producción de bioetanol para el 2019 y abril, el mes con
+menor producción de bioetanol, cabe resaltar que en el 2019 solo se
+tiene los datos de producción de bioetanol de los primeros 5 meses.
+
+\subsection{Guardo figuras.}\label{guardo-figuras.}
+
+\subsection{Referencias.}\label{referencias.}
+
+Página para gráficos
+({[}\url{https://r-graph-gallery.com/index.html}{]})
+
+Análisis de
+Temperatura({[}\url{file:///C:/Users/Usuario/AppData/Local/Temp/Rar$EXa0.115/datos_temperatura/analisis.html}{]})
+
+\end{document}
